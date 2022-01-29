@@ -7,7 +7,6 @@ const port = 8080;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }));
-app.use('/static', express.static(__dirname + 'public'));
 
 const productsList = [];
 
@@ -47,7 +46,7 @@ products.post('/', (req, res) => {
          product: req.body.item,
          price: req.body.price
     };
-    productsList.psuh(product);  
+    productsList.push(product);  
     res.send(productsList);
  });
 
@@ -55,7 +54,7 @@ products.put('/:id', (req, res) => {
     res.send('put ok');
  });
 
-products.delete('/products/delete/:id', (req, res) => {
+products.delete('/delete/:id', (req, res) => {
 
    productsList = productsList.filter(product => {
       product.id != req.params.id
@@ -67,6 +66,7 @@ products.delete('/products/delete/:id', (req, res) => {
  });
 
 app.use('/products', products);
+app.use('/static', express.static('public'));
 
 app.listen(port, () => {
    console.log(`Escuchando en esta uri http://localhost: ${port}`)
