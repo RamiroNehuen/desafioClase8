@@ -11,18 +11,15 @@ app.use('/static', express.static(__dirname + 'public'));
 
 const productsList = [];
 
-app.get('/', (req, res) => {
-   res.send('Desafio clase 8')
-});
 
-app.get('/products', (req, res) => {
+products.get('/', (req, res) => {
    if(productsList.length === 0){
-      res.send('aun no hay productos cargados')
+      res.send(` Aún no hay productos cargados`)
    } else {res.send(productsList)}
    ;
 });
 
-app.get('/products/:id', (req, res) => {
+products.get('/:id', (req, res) => {
 
    const getProductById = () => {
       const product = productsList.find(product => product.id == req.params.id);
@@ -37,7 +34,7 @@ app.get('/products/:id', (req, res) => {
 
 });
 
-app.post('/products', (req, res) => {
+products.post('/', (req, res) => {
    const generateNewId = () =>{
       let idIndex = Math.floor(Math.random() * 9999) +1;
       if (Object.keys(productsList).includes(idIndex) == idIndex) {
@@ -54,7 +51,7 @@ app.post('/products', (req, res) => {
     res.send(productsList);
  });
 
-products.put('/products/:id', (req, res) => {
+products.put('/:id', (req, res) => {
     res.send('put ok');
  });
 
