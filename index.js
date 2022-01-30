@@ -54,15 +54,16 @@ products.put('/:id', (req, res) => {
     res.send('put ok');
  });
 
-products.delete('/delete/:id', (req, res) => {
+products.delete('/:id', (req, res) => {
 
-   productsList = productsList.filter(product => {
-      product.id != req.params.id
-   });
-   
-            
-   res.send(productsList);
-
+  const { id } = req.params;
+  const deleted = productsList.find(product => product.id === id);
+  if(deleted){
+     productsList = productsList.filter(product => product.id === id);
+     res.send('Producto eliminado correctamente')
+  } else {
+     res.send('El id ingresado no coincide con ningún producto');
+  };
  });
 
 app.use('/products', products);
