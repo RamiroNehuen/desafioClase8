@@ -20,17 +20,14 @@ products.get('/', (req, res) => {
 
 products.get('/:id', (req, res) => {
 
-   const getProductById = () => {
-      const product = productsList.find(product => product.id == req.params.id);
-      if (product === undefined){
-         return 'No existe producto con esa ID';
-      } else {
-         return product;
-      }
-   };
-            
-   res.send(getProductById ());
+   const { id } = req.params;
+   const found = productsList.find(product => product.id === id);
 
+   if(found){
+      res.send(found);
+   }else {
+      res.send('El producto no existe');
+   };
 });
 
 products.post('/', (req, res) => {
@@ -60,7 +57,7 @@ products.delete('/:id', (req, res) => {
   const deleted = productsList.find(product => product.id === id);
   if(deleted){
      productsList = productsList.filter(product => product.id === id);
-     res.send('Producto eliminado correctamente')
+     res.send(`Se ha eliminado correctamente el siguiente producto: ${deleted}`)
   } else {
      res.send('El id ingresado no coincide con ningún producto');
   };
