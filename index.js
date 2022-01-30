@@ -19,7 +19,6 @@ products.get('/', (req, res) => {
 });
 
 products.get('/:id', (req, res) => {
-
    const { id } = req.params;
    const found = productsList.find(product => product.id === id);
 
