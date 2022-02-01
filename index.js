@@ -40,14 +40,25 @@ products.post('/', (req, res) => {
     const product = {
          id: generateNewId(),
          product: req.body.item,
-         price: req.body.price
+         price: req.body.price,
+         img: req.body.imgUrl
     };
     productsList.push(product);  
     res.send(productsList);
  });
 
 products.put('/:id', (req, res) => {
-    res.send('put ok');
+   const { id } = req.params;
+   const changes = req.body;
+
+   const index = productsList.findIndex(product => product.id === id)
+   
+   if( index !== -1) {
+      productsList[index] = changes;
+      res.send(productsList[index]);
+   }else {
+      res.send('No existe producto con ese ID')
+   };
  });
 
 products.delete('/:id', (req, res) => {
